@@ -1,80 +1,52 @@
 
+// Define the FFmpeg package
 ext {
     flutterFFmpegPackage = "full-gpl"
 }
+
 allprojects {
     repositories {
         google()
         mavenCentral()
+        jcenter() // Ensure compatibility with older dependencies
     }
 }
 
+// Define a custom build directory for the root project
 rootProject.buildDir = '../build'
 
+// Configure subprojects
 subprojects {
-    afterEvaluate { project ->
-        if (project.hasProperty('android')) {
-            project.android {
-                if (namespace == null) {
-                    namespace project.group
-                }
+    if (project.plugins.hasPlugin("com.android.application") || project.plugins.hasPlugin("com.android.library")) {
+        android {
+            if (namespace == null) {
+                namespace = project.group
+            }
+            compileOptions {
+                sourceCompatibility JavaVersion.VERSION_1_8
+                targetCompatibility JavaVersion.VERSION_1_8
             }
         }
     }
 }
 
-subprojects {
-    project.buildDir = "${rootProject.buildDir}/${project.name}"
-    project.evaluationDependsOn(':app')
-}
 
-tasks.register("clean", Delete) {
-    delete rootProject.buildDir
-}
-ext {
-    flutterFFmpegPackage = "full-gpl"
-}
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        jcenter() // Add jcenter repository
-    }
-}
-
-rootProject.buildDir = '../build'
-
-subprojects {
-    afterEvaluate { project ->
-        if (project.hasProperty('android')) {
-            project.android {
-                if (namespace == null) {
-                    namespace project.group
-                }
-                compileOptions {
-                    sourceCompatibility JavaVersion.VERSION_1_8
-                    targetCompatibility JavaVersion.VERSION_1_8
-                }
-            }
-        }
-    }
-}
-
-subprojects {
-    project.buildDir = "${rootProject.buildDir}/${project.name}"
-    project.evaluationDependsOn(':app')
-}
-
+// Define a global clean task
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
 
+// Ensure UTF-8 encoding for Java tasks
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
 
+// Add manifest attributes for JAR tasks
 tasks.withType(org.gradle.jvm.tasks.Jar) {
     manifest {
-        attributes("Implementation-Title": "Gradle", "Implementation-Version": version)
+        attributes(
+            "Implementation-Title": "Gradle",
+            "Implementation-Version": version
+        )
     }
 }
