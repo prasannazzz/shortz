@@ -59,7 +59,7 @@ class SessionManager {
   User? getUser() {
     if (sharedPreferences != null) {
       String? strUser = sharedPreferences!.getString(KeyRes.user);
-      if (strUser.isNotEmpty) {
+      if (strUser!.isNotEmpty) {
         return User.fromJson(jsonDecode(strUser));
       } else {
         return null;
@@ -77,7 +77,7 @@ class SessionManager {
   Setting? getSetting() {
     if (sharedPreferences != null) {
       String? value = sharedPreferences?.getString(KeyRes.setting);
-      if (value.isNotEmpty) {
+      if (value!.isNotEmpty) {
         return Setting.fromJson(jsonDecode(value));
       } else {
         return null;
@@ -108,7 +108,7 @@ class SessionManager {
   List<String> getFavouriteMusic() {
     if (sharedPreferences != null) {
       String? userString = sharedPreferences!.getString(KeyRes.favouriteMusic);
-      if (userString.isNotEmpty) {
+      if (userString!.isNotEmpty) {
         List<dynamic> dummy = json.decode(userString);
         return dummy.map((item) => item as String).toList();
       }
