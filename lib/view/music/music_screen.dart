@@ -77,7 +77,7 @@ class _MusicScreenState extends State<MusicScreen> {
   @pragma('vm:entry-point')
   static void downloadCallback(String id, int status, int progress) {
     SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port');
-    send.send([id, status, progress]);
+    send!.send([id, status, progress]);
   }
 
   @override

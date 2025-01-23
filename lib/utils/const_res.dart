@@ -1,5 +1,5 @@
 class ConstRes {
-  static final String base = 'https://shortz.everests.co.uk/api/;
+  static final String base = 'https://shortz.everests.co.uk/api/';
   static const String apiKey = 'dev123';
   static final String baseUrl = '${base}api/';
 

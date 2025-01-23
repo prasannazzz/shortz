@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:bubbly/view/chat_screen/widget/video_thumbnail.dart';
 
 import 'image_video_msg_screen.dart';
 
@@ -35,7 +35,7 @@ class AddBtnSheet extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
-                  color: myLoading.isDark
+                  color: myLoading.isDark 
                       ? ColorRes.colorPrimary
                       : ColorRes.greyShade100),
               child: Column(
